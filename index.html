@@ -9,15 +9,6 @@
             font-size: 24px;
             text-align: center;
         }
-
-        #keypress-info {
-            font-size: 48px;
-        }
-
-        #greeting {
-            font-size: 24px;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -28,64 +19,261 @@
     </div>
 
     <script>
-        var content = document.getElementById("content");
-        var keypressInfo = document.getElementById("keypress-info");
         var greeting = document.getElementById("greeting");
+
+        // Array of greeting phrases in different languages
+        var greetings = [
+                            "Hello",
+                "Bonjour",
+                "Hola",
+                "Hallo",
+                "Ciao",
+                "こんにちは",
+                "안녕하세요",
+                "مرحبا",
+                "नमस्ते",
+                "สวัสดี",
+                "שלום",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "வணக்கம்",
+                "నమస్కారం",
+                "हाय",
+                "你好",
+                "Olá",
+                "Здравствуйте",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "Привет",
+                "გამარჯობა",
+                "مرہبا",
+                "હેલો",
+                "नमस्कार",
+                "여보세요",
+                "Xin chào",
+                "ಹಲೋ",
+                "Сайн байна уу",
+                "Привет",
+                "Γειά σας",
+                "سلام",
+                "ជំរាបសួរ",
+                "Chào bạn",
+                "ഹലോ",
+                "हॅलो",
+                "Hai",
+                "سلام",
+                "مرحبا",
+                "ସୁବିଦା",
+                "හෙලෝ",
+                "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ",
+                "Habari",
+                "سلام",
+                "Բարև",
+                "مرحبا",
+                "မင်္ဂလာပါ",
+                "Сайн байна уу",
+                "سلام",
+                "ہیلو",
+                "ഹലോ",
+                "سلام",
+                "Բարև",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "வணக்கம்",
+                "హలో",
+                "ជំរាបសួរ",
+                "مرحبا",
+                "ಹಲೋ",
+                "سلام",
+                "ສະບາຍດີ",
+                "Салам",
+                "හෙලෝ",
+                "سلام",
+                "Манайн үндэс",
+                "Сайн байна уу",
+                "สวัสดี",
+                "Салам",
+                "سلام",
+                "Xin chào",
+                "Здравейте",
+                "Habari",
+                "Habari",
+                "Kamusta",
+                "Салам",
+                "ନମସ୍କାର",
+                "Здравствуйте",
+                "Buna ziua",
+                "Hei",
+                "హలో",
+                "سلام",
+                "Hujambo",
+                "Hej",
+                "Салом",
+                "Здравствуйте",
+                "Salam",
+                "Mingalarba",
+                "ಹಲೋ",
+                "Bonjour",
+                "Hallo",
+                "Ciao",
+                "こんにちは",
+                "안녕하세요",
+                "مرحبا",
+                "नमस्ते",
+                "สวัสดี",
+                "שלום",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "வணக்கம்",
+                "నమస్కారం",
+                "हाय",
+                "Olá",
+                "Здравствуйте",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "Привет",
+                "გამარჯობა",
+                "مرہبا",
+                "હેલો",
+                "नमस्कार",
+                "여보세요",
+                "Xin chào",
+                "ಹಲೋ",
+                "Сайн байна уу",
+                "Привет",
+                "Γειά σας",
+                "سلام",
+                "ជំរាបសួរ",
+                "Chào bạn",
+                "ഹലോ",
+                "हॅलो",
+                "Hai",
+                "سلام",
+                "مرحبا",
+                "ସୁବିଦା",
+                "හෙලෝ",
+                "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ",
+                "Habari",
+                "سلام",
+                "Բարև",
+                "مرحبا",
+                "မင်္ဂလာပါ",
+                "Сайн байна уу",
+                "سلام",
+                "ہیلو",
+                "ഹലോ",
+                "سلام",
+                "Բարև",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "வணக்கம்",
+                "హలో",
+                "ជំរាបសួរ",
+                "مرحبا",
+                "ಹಲೋ",
+                "سلام",
+                "ສະບາຍດີ",
+                "Салам",
+                "හෙලෝ",
+                "سلام",
+                "Манайн үндэс",
+                "Сайн байна уу",
+                "สวัสดี",
+                "Салам",
+                "سلام",
+                "Xin chào",
+                "Здравствуйте",
+                "Hallo",
+                "Ciao",
+                "こんにちは",
+                "안녕하세요",
+                "مرحبا",
+                "नमस्ते",
+                "สวัสดี",
+                "שלום",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "வணக்கம்",
+                "నమస్కారం",
+                "हाय",
+                "Olá",
+                "Здравствуйте",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "Привет",
+                "გამარჯობა",
+                "مرہبا",
+                "હેલો",
+                "नमस्कार",
+                "여보세요",
+                "Xin chào",
+                "ಹಲೋ",
+                "Сайн байна уу",
+                "Привет",
+                "Γειά σας",
+                "سلام",
+                "ជំរាបសួរ",
+                "Chào bạn",
+                "ഹലോ",
+                "हॅलो",
+                "Hai",
+                "سلام",
+                "مرحبا",
+                "ସୁବିଦା",
+                "හෙලෝ",
+                "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ",
+                "Habari",
+                "سلام",
+                "Բարև",
+                "مرحبا",
+                "မင်္ဂလာပါ",
+                "Сайн байна уу",
+                "سلام",
+                "ہیلو",
+                "ഹലോ",
+                "سلام",
+                "Բարև",
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+                "வணக்கம்",
+                "హలో",
+                "ជំរាបសួរ",
+                "مرحبا",
+                "ಹಲೋ",
+                "سلام",
+                "ສະບາຍດີ",
+                "Салам",
+                "හෙලෝ",
+                "سلام",
+                "Манайн үндэс",
+                "Сайн байна уу",
+                "สวัสดี",
+                "Салам",
+                "سلام",
+                "Xin chào",
+                "Здравствуйте"
+            "Hello",
+            "Bonjour",
+            "Hola",
+            "Ciao",
+            "こんにちは",
+            "안녕하세요",
+            "مرحبا",
+            "नमस्ते",
+            "สวัสดี",
+            "你好",
+            "Привет",
+            "გამარჯობა"
+            // Tambahkan bahasa-bahasa non-alphabet lainnya di sini
+        ];
+
+        // Function to change the greeting language
+        function changeGreetingLanguage() {
+            var randomIndex = Math.floor(Math.random() * greetings.length);
+            var selectedGreeting = greetings[randomIndex];
+            greeting.innerHTML = selectedGreeting;
+        }
 
         // Event listener for keydown
         document.addEventListener("keydown", function(event) {
-            changeBackgroundColor();
-            updateKeypressInfo(event.key);
             changeGreetingLanguage();
         });
 
         // Event listener for mousewheel
         document.addEventListener("wheel", function(event) {
-            changeBackgroundColor();
-            updateKeypressInfo("Scroll");
             changeGreetingLanguage();
         });
-
-        function changeBackgroundColor() {
-            var randomColor = getRandomColor();
-            document.body.style.backgroundColor = randomColor;
-            var invertedColor = invertColor(randomColor);
-            document.body.style.color = invertedColor;
-            keypressInfo.style.color = invertedColor;
-            greeting.style.color = invertedColor;
-        }
-
-        function updateKeypressInfo(key) {
-            keypressInfo.innerHTML = "Action: " + key;
-        }
-
-        function changeGreetingLanguage() {
-            var languages = ["Hello", "Bonjour", "Hola", "Ciao", "こんにちは", "안녕하세요"];
-            var randomIndex = Math.floor(Math.random() * languages.length);
-            var selectedLanguage = languages[randomIndex];
-            greeting.innerHTML = selectedLanguage;
-        }
-
-        function getRandomColor() {
-            var letters = "0123456789ABCDEF";
-            var color = "#";
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        function invertColor(hexColor) {
-            var hex = hexColor.replace("#", "");
-            var r = (255 - parseInt(hex.substr(0, 2), 16)).toString(16);
-            var g = (255 - parseInt(hex.substr(2, 2), 16)).toString(16);
-            var b = (255 - parseInt(hex.substr(4, 2), 16)).toString(16);
-            return "#" + padZero(r) + padZero(g) + padZero(b);
-        }
-
-        function padZero(str) {
-            return str.length === 1 ? "0" + str : str;
-        }
     </script>
 </body>
 </html>
