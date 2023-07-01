@@ -9,28 +9,41 @@
             font-size: 24px;
             text-align: center;
         }
+
+        #keypress-info {
+            font-size: 48px;
+        }
+
+        #greeting {
+            font-size: 24px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div id="content">
         <h1>Dynamic Background Color</h1>
         <p id="keypress-info">Press any key or scroll to change background color.</p>
+        <p id="greeting"></p>
     </div>
 
     <script>
         var content = document.getElementById("content");
         var keypressInfo = document.getElementById("keypress-info");
+        var greeting = document.getElementById("greeting");
 
         // Event listener for keydown
         document.addEventListener("keydown", function(event) {
             changeBackgroundColor();
             updateKeypressInfo(event.key);
+            changeGreetingLanguage();
         });
 
         // Event listener for mousewheel
         document.addEventListener("wheel", function(event) {
             changeBackgroundColor();
             updateKeypressInfo("Scroll");
+            changeGreetingLanguage();
         });
 
         function changeBackgroundColor() {
@@ -39,10 +52,18 @@
             var invertedColor = invertColor(randomColor);
             document.body.style.color = invertedColor;
             keypressInfo.style.color = invertedColor;
+            greeting.style.color = invertedColor;
         }
 
         function updateKeypressInfo(key) {
             keypressInfo.innerHTML = "Action: " + key;
+        }
+
+        function changeGreetingLanguage() {
+            var languages = ["Hello", "Bonjour", "Hola", "Ciao", "こんにちは", "안녕하세요"];
+            var randomIndex = Math.floor(Math.random() * languages.length);
+            var selectedLanguage = languages[randomIndex];
+            greeting.innerHTML = selectedLanguage;
         }
 
         function getRandomColor() {
