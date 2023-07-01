@@ -14,29 +14,36 @@
 <body>
     <div id="content">
         <h1>Dynamic Background Color</h1>
-        <p id="keypress-info">Press any key to change background color.</p>
+        <p id="keypress-info">Press any key or scroll to change background color.</p>
     </div>
 
     <script>
         var content = document.getElementById("content");
         var keypressInfo = document.getElementById("keypress-info");
 
+        // Event listener for keydown
         document.addEventListener("keydown", function(event) {
-            var key = event.key;
-            var keyCode = event.keyCode;
+            changeBackgroundColor();
+            updateKeypressInfo(event.key);
+        });
 
-            // Change background color
+        // Event listener for mousewheel
+        document.addEventListener("wheel", function(event) {
+            changeBackgroundColor();
+            updateKeypressInfo("Scroll");
+        });
+
+        function changeBackgroundColor() {
             var randomColor = getRandomColor();
             document.body.style.backgroundColor = randomColor;
-
-            // Change text color
             var invertedColor = invertColor(randomColor);
             document.body.style.color = invertedColor;
-
-            // Update keypress info
-            keypressInfo.innerHTML = "Key Pressed: " + key;
             keypressInfo.style.color = invertedColor;
-        });
+        }
+
+        function updateKeypressInfo(key) {
+            keypressInfo.innerHTML = "Action: " + key;
+        }
 
         function getRandomColor() {
             var letters = "0123456789ABCDEF";
